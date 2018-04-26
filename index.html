@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Story Telling</title>
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <style>
+
+
+</style>
+
+ </head>
+<body>
+  <ul class="pages">
+    <li class="chat page">
+      <div id="header1">
+<h1 style="font-family:Courier;color: white;padding-top: 20px; padding-left: 12px;"><i> Let's build a story together! </i></h1>
+
+</div>
+
+
+<div id="header2">
+      <div class="container" style="height:80%;">
+        
+<table style="height:100%;width:100%;overflow: scroll;">
+  <tr>
+
+    <td style="width:25%;">
+      <div id="character" style="height: 90%;">
+        <!-- <div id="title"> -->
+          <p style="font-family:Courier;color: white;font-size:18px; padding-left: 5px; background: #737373;margin: 0;"><i>Choose Characters for your story! </i></p>
+        <!-- </div> -->
+            <div> 
+
+              <table>
+
+                <tr>
+                  <td>
+                    <div> <p> Pikachu <br> <img id="pokemon" src="images/pokemon.png"  width="100" height="100" ></p></div>
+                  </td>
+
+                   <td>
+
+                    <div> <p> Jerry <br> <img id="jerry" src="images/jerry.png"  width="100" height="100" ></p> </div>
+                   </td>
+                       
+                    <td>
+                      <div> <p> Tom <br> <img id="tom" src="images/tom.png"  width="100" height="100" > </p> </div>
+                   
+                   </td>
+
+                </tr>
+
+                <tr>
+                  <td>
+                    
+                    <div> <p> Popeye <br> <img id="popeye" src="images/popeye.png"  width="100" height="100" ></p> </div>
+                  </td>
+
+                   <td>                   
+                    <div> <p>Bart<br> <img id="bart" src="images/bart.png"   width="100" height="100" ></p></div>
+                   </td>
+
+                  &nbsp; &nbsp;
+                   <td>                   
+                    <div> <p>&nbsp; &nbsp;Spongebob <br> &nbsp; &nbsp;<img id="sponge" src="images/Spongebob.png"   width="100" height="100" ></p></div>
+                   </td>
+
+                </tr>
+
+              </table>
+
+
+
+           </div>
+
+      </div>
+
+      <div style="height: 10%;">
+
+ <button id="myBtn" class="button button1">Review</button>
+
+ <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="fullStory">The Story</p> <br>
+  </div>
+
+</div>
+
+</div> 
+    </td>
+
+    <td style="width:60%;">
+      <div id="story" style="height: 100%; overflow-y: scroll;">
+
+        <div class="chatArea">
+        <ul class="messages"></ul>
+      </div>
+        <input class="inputMessage" placeholder="Type here..."/>
+         
+
+      </div>
+
+       
+
+    </td>
+
+  </tr>
+
+
+</table>
+
+</div>
+</div>
+
+    </li>
+    <li class="login page">
+
+      <div class="form">
+        <h3 class="title">What's your nickname?</h3>
+        <input class="usernameInput" type="text" maxlength="14" />
+      </div>
+    </li>
+  </ul>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="scripts/main.js"></script>
+  <script>
+    
+
+  // Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    
+     var messages = document.getElementsByClassName("messageBody");// Messages area
+
+     var story="";
+    console.log(messages);
+    for(var i=0;i<messages.length;i++)
+    {
+     
+    story=story.concat(messages[i].innerHTML)
+    story=story.concat(". ");
+      //story.push(messages[i].innerHTML);
+   //document.getElementById('fullStory').innerHTML=messages[i].innerHTML;
+
+  }
+       document.getElementById('fullStory').innerHTML=story;
+
+      modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+  </script>
+</body>
+</html>
