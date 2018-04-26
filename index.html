@@ -26,26 +26,22 @@
   <tr>
 
     <td style="width:25%;">
-      <div id="character" style="height: 90%;">
-        <!-- <div id="title"> -->
+      <div id="character" style="height:48%;">
           <p style="font-family:Courier;color: white;font-size:18px; padding-left: 5px; background: #737373;margin: 0;"><i>Choose Characters for your story! </i></p>
-        <!-- </div> -->
-            <div> 
-
               <table>
 
                 <tr>
                   <td>
-                    <div> <p> Pikachu <br> <img id="pokemon" src="images/pokemon.png"  width="100" height="100" ></p></div>
+                    <div> <p> Pikachu <br> <img id="pokemon" src="images/pokemon.png"  width="80" height="70" ></p></div>
                   </td>
 
                    <td>
 
-                    <div> <p> Jerry <br> <img id="jerry" src="images/jerry.png"  width="100" height="100" ></p> </div>
+                    <div> <p> Jerry <br> <img id="jerry" src="images/jerry.png"  width="80" height="70" ></p> </div>
                    </td>
                        
                     <td>
-                      <div> <p> Tom <br> <img id="tom" src="images/tom.png"  width="100" height="100" > </p> </div>
+                      <div> <p> Tom <br> <img id="tom" src="images/tom.png"  width="80" height="70" > </p> </div>
                    
                    </td>
 
@@ -54,16 +50,14 @@
                 <tr>
                   <td>
                     
-                    <div> <p> Popeye <br> <img id="popeye" src="images/popeye.png"  width="100" height="100" ></p> </div>
+                    <div> <p> Popeye <br> <img id="popeye" src="images/popeye.png"  width="80" height="70" ></p> </div>
                   </td>
 
                    <td>                   
-                    <div> <p>Bart<br> <img id="bart" src="images/bart.png"   width="100" height="100" ></p></div>
+                    <div> <p>Bart<br> <img id="bart" src="images/bart.png"   width="80" height="70" ></p></div>
                    </td>
-
-                  &nbsp; &nbsp;
                    <td>                   
-                    <div> <p>&nbsp; &nbsp;Spongebob <br> &nbsp; &nbsp;<img id="sponge" src="images/Spongebob.png"   width="100" height="100" ></p></div>
+                    <div> <p>&nbsp; &nbsp;Spongebob <br> &nbsp; &nbsp;<img id="sponge" src="images/Spongebob.png"   width="80" height="70" ></p></div>
                    </td>
 
                 </tr>
@@ -74,9 +68,58 @@
 
            </div>
 
+        <div id="object" style="height:48%;">
+          <p style="font-family:Courier;color: white;font-size:18px; padding-left: 5px; background: #737373;margin: 0;"><i>Use as many objects as you can! </i></p>
+              <table>
+
+                <tr>
+                  <td>
+                    <div> <p> Basketball <br> <img id="pokemon" src="images/basketball.jpeg"  width="80" height="70" ></p></div>
+                  </td>
+
+                   <td>
+
+                    <div> <p> Cookies <br> <img id="jerry" src="images/cookies.jpg"  width="80" height="70" ></p> </div>
+                   </td>
+                       
+                    <td>
+                      <div> <p> Lemonade <br> <img id="tom" src="images/lemonade.jpg"  width="80" height="70" > </p> </div>
+                   
+                   </td>
+
+                </tr>
+
+                <tr>
+                  <td>
+                    
+                    <div> <p> Milk <br> <img id="popeye" src="images/milk.jpg"  width="80" height="70" ></p> </div>
+                  </td>
+
+                   <td>                   
+                    <div> <p>BasketBall Yard<br> <img id="bart" src="images/yard with basketball hoop.jpg"   width="80" height="70" ></p></div>
+                   </td>
+
+                </tr>
+
+              </table>
+
       </div>
 
-      <div style="height: 10%;">
+
+    </td>
+
+    <td style="width:60%;">
+      <div id="story" style="height: 90%; overflow-y: scroll;">
+
+        <div class="chatArea">
+        <ul class="messages"></ul>
+      </div>
+        <input class="inputMessage" placeholder="Type here..."/>
+         
+
+      </div>
+
+    <div style="height: 10%;">
 
  <button id="myBtn" class="button button1">Review</button>
 
@@ -91,18 +134,6 @@
 </div>
 
 </div> 
-    </td>
-
-    <td style="width:60%;">
-      <div id="story" style="height: 100%; overflow-y: scroll;">
-
-        <div class="chatArea">
-        <ul class="messages"></ul>
-      </div>
-        <input class="inputMessage" placeholder="Type here..."/>
-         
-
-      </div>
 
        
 
@@ -152,7 +183,7 @@ btn.onclick = function() {
     {
      
     story=story.concat(messages[i].innerHTML)
-    story=story.concat(". ");
+   // story=story.concat("");
       //story.push(messages[i].innerHTML);
    //document.getElementById('fullStory').innerHTML=messages[i].innerHTML;
 

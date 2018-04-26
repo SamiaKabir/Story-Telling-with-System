@@ -126,8 +126,8 @@ ul {
   padding: 10px 20px 10px 20px;
 }
 
-.messages li { padding: 5px 10px; }
-/*.messages li:nth-child(odd) { background: #eee; }*/
+.messages li { padding: 5px 10px; border: "solid"; border-width: 3px; background: #668cff; margin-top:7px;}
+.messages li:nth-child(odd) { background: #eee; }
 
 .message.typing .messageBody {
   color: gray;
@@ -207,13 +207,13 @@ ul {
 #header1{
 
     background: #404040;
-    height: 12%;}
+    height: 10%;}
 
 #header2{
     background-image: url("http://p3.storage.canalblog.com/37/45/157598/94723216_o.gif");
     /*background-color: #cccccc;*/
     background-color: #e6ffff;
-    height: 88%;
+    height: 90%;
 }
 .button {
     background-color: #4d4d4d /* Green */
@@ -252,10 +252,20 @@ ul {
 #character{
 
     width: 90%;
-    height:90%;
+    height:100%;
     background: #e6e6e6;
     border: solid #4d4d4d;
-    margin-top:15px;
+    margin-left: 20px;
+
+}
+
+#object{
+
+    width: 90%;
+    height:100%;
+    background: #e6e6e6;
+    border: solid #4d4d4d;
+    margin-top: 7px;
     margin-left: 20px;
 
 }

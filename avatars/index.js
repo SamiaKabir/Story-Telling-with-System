@@ -1,3 +1,15 @@
+var express = require('express');
+var app = express();
+var path = require('path');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = process.env.PORT || 3000;
+// var nami = require("./nami");
+
+// nami.a();
+
+
+
 var characters = ['Bart', 'Tom', 'Popeye', 'Spongebob', 'Jerry', 'Pikachu'];
 var vehicles = ['car', 'bike', 'motorcycle', 'scooter', 'skateboard', 'rollerblades'];
 var food = ['chips', 'cookies and milk', 'lemonade', 'rice and curry'];
@@ -6,6 +18,8 @@ var places = ['his house', protagonist + '\'s house', getRandArrayElem(character
 var storyChars = [protagonist];
 var points = ['two', 'three'];
 var refChar = protagonist;
+
+
 
 console.log(characters);
 console.log(food);
@@ -71,9 +85,38 @@ var rl = readline.createInterface({
     input: process.stdin,
 });
 
-console.log('It was a beautiful sunny day, ' + protagonist + ' thought as he looked outside through the window');
-rl.on('line', function(line){
+
+
+
+app.get('/', function(req, res){
+res.sendFile(__dirname + '/index.html');
+});
+
+
+app.use('/images',express.static(path.join(__dirname+ '/images')));
+app.use('/styles',express.static(path.join(__dirname+ '/styles')));
+app.use('/scripts',express.static(path.join(__dirname+ '/scripts')));
+app.use('/libraries',express.static(path.join(__dirname+ '/libraries')));
+app.use('/avatars',express.static(path.join(__dirname+ '/avatars')));
+// Routing
+app.use(express.static(path.join(__dirname, 'public')));
+
+var numUsers = 0;
+var users=[];
+
+io.emit('some event', { for: 'everyone' });
+
+io.on('connection', function(socket){
+
+  var addedUser = false;
+
+  // when the client emits 'new message', this listens and executes
+  socket.on('message', function (data) {
+    // we tell the client to execute 'new message'
     var output = null;
+    var line= data;
+
+    console.log(data)
     // Local suggestion : Just try to add something relevant
     // Try to preserve the most likely causal event.
     // Remove punctuation, like 's and ., these mess with word checking
@@ -104,5 +147,74 @@ rl.on('line', function(line){
         genericSentences = createGenericSentences();
         output = getRandArrayElem(genericSentences);
     }
+
+    users.push(socket.username);
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      message: data
+    });
+
+ 
+    users.push('nami');
+    socket.emit('system message', {
+      username: 'nami',
+      message: output
+    });
+   
     console.log(output);
+  });
+
+
+
+
+
+  // when the client emits 'add user', this listens and executes
+  socket.on('add user', function (username) {
+
+    socket.emit('login', {
+      username: 'nami',
+      message: 'It was a beautiful sunny day, ' + protagonist + ' thought as he looked outside through the window' 
+    });
+    //echo globally (all clients) that a person has connected
+    socket.broadcast.emit('user joined', {
+      username: 'nami',
+      message: 'It was a beautiful sunny day, ' + protagonist + ' thought as he looked outside through the window' 
+    });
+
+  });
+
+
+
+  // when the client emits 'typing', we broadcast it to others
+  socket.on('typing', function () {
+    socket.broadcast.emit('typing', {
+      username: socket.username
+    });
+  });
+
+  // when the client emits 'stop typing', we broadcast it to others
+  socket.on('stop typing', function () {
+    socket.broadcast.emit('stop typing', {
+      username: socket.username
+    });
+  });
+
+  // when the user disconnects.. perform this
+  socket.on('disconnect', function () {
+    if (addedUser) {
+      --numUsers;
+
+      // echo globally that this client has left
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+        numUsers: numUsers
+      });
+    }
 });
+
+});
+
+http.listen(port, function(){
+  console.log('listening on *:3000');
+});
+

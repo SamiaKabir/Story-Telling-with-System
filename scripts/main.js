@@ -12,9 +12,11 @@ $(function() {
    var avatars=[
 
      "avatars/1.png","avatars/2.png","avatars/3.png",
-     "avatars/4.png","avatars/5.png","avatars/6.png",
+     "avatars/4.png","avatars/5.png","avatars/6.gif",
      "avatars/7.png"
   ];
+
+  var animation="avatars/puppy.gif"
 
   // Initialize variables
   var $window = $(window);
@@ -72,8 +74,9 @@ $(function() {
         username: username,
         message: message
       });
-      // tell server to execute 'new message' and send along one parameter
-      socket.emit('new message', message);
+      // tell server to execute 'message' and send along one parameter
+      socket.emit('message', message);
+     // socket.emit('system message', message);
     }
   }
 
@@ -97,8 +100,21 @@ $(function() {
       .text(data.username)
       .css('color', getUsernameColor(data.username));
 
-    var img = new Image(30,30);
-    img.src = getUserAvatar(data.username);
+
+   var img;
+
+   if(data.username!=username){
+
+      img = new Image(50,50);
+      img.src = animation;
+    }
+
+    else
+    {
+      img = new Image(30,30);
+      img.src = getUserAvatar(data.username);
+
+    }
     var $userAvatarDiv = $('<span class="username"/>')
       .append(img)
 
