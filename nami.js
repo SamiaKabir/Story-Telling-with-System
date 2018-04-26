@@ -95,7 +95,6 @@ var rl = readline.createInterface({
 console.log('It\'s the perfect weather to be playing outside, ' + protagonist + ' thought as he gazed at the clear blue sky.');
 rl.on('line', function(line){
     var output = null;
-    console.log(storyChars);
     // Local suggestion : Just try to add something relevant
     // Remove punctuation, like 's and ., these mess with word checking
     line = line.replace(/[^\w\s]/g, ' ');
