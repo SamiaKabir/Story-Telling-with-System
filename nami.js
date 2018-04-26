@@ -1,5 +1,3 @@
-
-
 Array.prototype.contains = function(obj) {
     var i = this.length;
     while (i--) {
@@ -31,6 +29,7 @@ function createGenericSentences() {
     if (foodCount < 2) {
         var sent1 = getRandArrayElem(storyChars) + ' thought that this\'d be a great time for some ' + getRandArrayElem(food) + '!';
         genericSentences.push(sent1);
+        foodCount++;
     }
     if (storyChars.length < 3) {
         // We are already at the protagonist's house, so him heading to his own house makes no sense!
@@ -75,18 +74,19 @@ function checkWord(line, word) {
 
 function checkCharacter(line) {
     words = line.split(' ');
-    for (i = 0; i < words.length; i++) {
+    var charArray = [];
+    for (i = words.length-1; i >= 0; i--) {
         for (j = 0; j < characters.length; j++) {
             if (characters[j] == words[i]) {
-                return words[i];
+                charArray.push(words[i]);
             }
             if (words[j] == 'he' || words[j] == 'He') {
-                return refChar;
+                charArray.push(refChar);
             }
         }
     }
     // All words checked, no character referenced
-    return null;
+    return charArray;
 }
 
 var readline = require('readline');
@@ -97,13 +97,15 @@ var rl = readline.createInterface({
 console.log('It\'s the perfect weather to be playing outside, ' + protagonist + ' thought as he gazed at the clear blue sky.');
 rl.on('line', function(line){
     var output = null;
-    console.log(storyChars);
     // Local suggestion : Just try to add something relevant
     // Remove punctuation, like 's and ., these mess with word checking
     line = line.replace(/[^\w\s]/g, ' ');
-    refChar = checkCharacter(line);
-    if (refChar != null && storyChars.contains(refChar) == false) {
-        storyChars.push(refChar);
+    refCharArray = checkCharacter(line);
+    for(i = 0; i < refCharArray.length; i++) {
+        refChar = refCharArray[i];
+        if (refChar != null && storyChars.contains(refChar) == false) {
+            storyChars.push(refChar);
+        }
     }
 
     if (refChar != null) {
@@ -124,7 +126,7 @@ rl.on('line', function(line){
             }
         } else if (checkWord(line, 'passed') || checkWord(line, 'pass') || checkWord(line, 'passes')) {
             output = 'But the pass gets blocked by ' + getRandArrayElem(storyChars);
-        } else if (checkWord(line, 'scores') || checkWord(line, 'scored')) {
+        } else if (checkWord(line, 'scores') || checkWord(line, 'scored') || checkWord(line, 'basket') || checkWord(line, 'shot')) {
             output = 'Did you see that shot?, ' + refChar + ' exclaimed!';
         }
     }

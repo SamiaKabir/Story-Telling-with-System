@@ -151,6 +151,7 @@ io.on('connection', function(socket){
     if (refChar != null && storyChars.contains(refChar) == false) {
         storyChars.push(refChar);
     }
+    console.log(storyChars);
 
     if (refChar != null) {
     // Try to preserve the most likely causal event.
@@ -170,7 +171,7 @@ io.on('connection', function(socket){
             }
         } else if (checkWord(line, 'passed') || checkWord(line, 'pass') || checkWord(line, 'passes')) {
             output = 'But the pass gets blocked by ' + getRandArrayElem(storyChars);
-        } else if (checkWord(line, 'scores') || checkWord(line, 'scored')) {
+        } else if (checkWord(line, 'scores') || checkWord(line, 'scored') || checkWord(line, 'basket') || checkWord(line, 'shot')) {
             output = 'Did you see that shot?, ' + refChar + ' exclaimed!';
         }
     }
